@@ -1,4 +1,5 @@
-﻿using la.niri.VPic.Scripts.Infra;
+﻿using la.niri.VPic.Scripts.Controller;
+using la.niri.VPic.Scripts.Infra;
 using la.niri.VPic.Scripts.Usercase;
 using UnityEngine;
 
@@ -10,8 +11,10 @@ namespace Assets.VPic.Scripts
         [SerializeField] private UserVRMLoader userVRMLoader;
         [SerializeField] private GameObject respawn;
         [SerializeField] private VPicUserInput vPicUserInput;
-        [SerializeField] private GameObject camera;
+        [SerializeField] private GameObject avatarParent;
         [SerializeField] private Animator animator;
+        [SerializeField] private VPicAvatarInitializer avatarInitializer;
+        [SerializeField] private UIManager uiManager;
 
         public async void Start()
         {
@@ -19,7 +22,9 @@ namespace Assets.VPic.Scripts
             avatar.Instance.gameObject.transform.position = respawn.transform.position;
             avatar.Instance.gameObject.transform.rotation = respawn.transform.rotation;
             vPicUserInput.SetAvatar(avatar);
-            camera.gameObject.transform.SetParent(avatar.Instance.gameObject.transform);
+            // avatarParent.gameObject.transform.SetParent(avatar.Instance.gameObject.transform);
+            avatarInitializer.Initialize(avatar);
+            uiManager.Avatar = avatar;
         }
         
     }
